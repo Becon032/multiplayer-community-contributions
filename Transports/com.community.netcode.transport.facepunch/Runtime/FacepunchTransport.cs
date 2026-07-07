@@ -6,6 +6,7 @@ using Steamworks.Data;
 using Unity.Netcode;
 using UnityEngine;
 using Unity.Collections.LowLevel.Unsafe;
+using System.Diagnostics;
 
 namespace Netcode.Transports.Facepunch
 {
@@ -94,14 +95,22 @@ namespace Netcode.Transports.Facepunch
         {
             connectedClients = new Dictionary<ulong, Client>();
 
-            try
+            if(!SteamClient.isValid)
             {
-                SteamClient.Init(steamAppId, false);
+                try
+                {
+                    SteamClient.Init(steamAppId, false);
+                }
+                catch (Exception e)
+                {
+                    if (LogLevel <= LogLevel.Error)
+                        Debug.LogError($"[{nameof(FacepunchTransport)}] - Caught an exeption during initialization of Steam client: {e}");
+                }
             }
-            catch (Exception e)
+            else
             {
-                if (LogLevel <= LogLevel.Error)
-                    Debug.LogError($"[{nameof(FacepunchTransport)}] - Caught an exeption during initialization of Steam client: {e}");
+                if (LogLevel <= LogLevel.Developer)
+                    Debug.Log($"[{nameof(FacepunchTransport)}] - Steam was already initialized");
             }
         }
 
