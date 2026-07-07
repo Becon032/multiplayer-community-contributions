@@ -6,7 +6,6 @@ using Steamworks.Data;
 using Unity.Netcode;
 using UnityEngine;
 using Unity.Collections.LowLevel.Unsafe;
-using System.Diagnostics;
 
 namespace Netcode.Transports.Facepunch
 {
