@@ -94,7 +94,7 @@ namespace Netcode.Transports.Facepunch
         {
             connectedClients = new Dictionary<ulong, Client>();
 
-            if(!SteamClient.isValid)
+            if(!SteamClient.IsValid)
             {
                 try
                 {
